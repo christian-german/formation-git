@@ -1,0 +1,1019 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Formation GIT</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="assets/css/zenburn.css">
+
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <img src="assets/logos/git_logo.png" height="100"/>
+
+            <p>
+                <small>Gestion de version décentralisée</small>
+            </p>
+
+            <aside class="notes">
+                <ul>
+                    <li>Présentation</li>
+                    <li>Qui connait GIT?</li>
+                    <li>Qui connait SVN?</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section>
+            <p>
+                <small>
+                    <h3>http://poadv120/git</h3>
+                </small>
+            </p>
+        </section>
+
+        <section>
+            <h5 class="title-min">Plan</h5>
+
+            <ul>
+                <li>Introduction</li>
+                <li class="fragment">Les bases, le stage</li>
+                <li class="fragment">Utilisation des branches</li>
+                <li class="fragment">Mode distribué</li>
+                <li class="fragment">Flux de développements</li>
+            </ul>
+
+            <aside class="notes">
+                Fragments
+            </aside>
+        </section>
+
+        <!--Introduction-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>Introduction</h1>
+                <img src="assets/logos/git_logo2.png" height="100"/>
+                <img src="assets/logos/cvs_logo.png" height="100"/>
+                <img src="assets/logos/mercurial_logo.png" height="100"/>
+                <img src="assets/logos/svn_logo.png" height="100"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Introduction</h5>
+
+                <h2>VCS Centralisé et Distribué</h2>
+                <small>
+                    <ul>
+                        <li>Centralisés : Le serveur conserve l'historique des versions des fichiers</li>
+                        <li>Les développeurs possèdent <span class="emphasize">une</span> version du fichier</li>
+                    </ul>
+                </small>
+                <img src="assets/centralized-vcs.png"/>
+
+            </section>
+            <section>
+                <h5 class="title-min">Introduction</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Chaque développeur possède <span class="emphasize">l'historique</span> des modifications
+                            apportées à chacun des fichiers
+                        </li>
+                    </ul>
+                </small>
+                <img src="assets/distributed-vcs.png"/>
+                <small>
+                    <ul>
+                        <li>Les développeurs peuvent <span class="emphasize">échanger</span> entre eux les modifications
+                        </li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Introduction</h5>
+
+                <h2>GIT</h2>
+
+                <small>
+                    <ul>
+                        <li>VCS Distribué (comme Mercurial et Bazaar)</li>
+                        <br/>
+                        <li>Permet de se passer de serveur ... en théorie</li>
+                        <br/>
+                        <li>Très puissant et récent, créé par Linus Torvalds (créateur de Linux)</li>
+                        <br/>
+                        <li>Rapidité, gestion particulièrement pratique des branches</li>
+                        <br/>
+                        <li>Assez complexe et prévu à l'origine pour Linux</li>
+                    </ul>
+                </small>
+            </section>
+        </section>
+
+
+        <!--Les bases - Comprendre le stage-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>Les bases</h1>
+                <h3>Installation, premières commandes</h3>
+                <h3>Comprendre le stage</h3>
+                <img src="assets/commit-strip.jpg" width="400px"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Installation</h2>
+                <small>Linux</small>
+                <pre><code class="hljs">sudo apt-get install git-core gitk</code></pre>
+
+                <small>Windows</small>
+                <pre><code class="hljs">https://gitforwindows.org/</code></pre>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Le fichier .gitconfig</h2>
+                <pre><code>git config --global user.name "nom PRENOM"</code></pre>
+                <pre><code>git config --global user.email moi@adventiel.fr</code></pre>
+                <br/>
+
+                <pre><code>vim ~/.gitconfig</code></pre>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <small>
+                <pre><code>
+[alias]
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  co = checkout
+  st = status
+  ci = commit
+  dt = difftool
+  glog = log --oneline --graph --decorate
+  gloga = log --oneline --graph --decorate --all
+                    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  glogg = log --graph --abbrev-commit --decorate --all
+                    --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset)
+                    %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
+[core]
+        autocrlf = input
+        editor = nano
+        excludesfile = /home/christian/.gitignore-global
+[pull]
+        rebase = true
+[diff]
+    tool = meld
+[merge]
+    tool = meld
+                </code></pre>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Créer et cloner un dépôt</h2>
+
+                <small>
+                    <div>
+                        <ul>
+                            <li>Créer un dépot GIT</li>
+                            <pre><code>git init</code></pre>
+                            <br/>
+                            <li>Cloner un dépot GIT</li>
+                            <pre><code>git clone adresse-du-dépot</code></pre>
+                        </ul>
+                    </div>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Consulter l'état du code</h2>
+                <small>
+                    <ul>
+                        <li>Visualiser les modifications</li>
+                        <pre><code>git status</code></pre>
+
+                        <li>Consulter tout l'historique du projet</li>
+                        <pre><code>git log</code></pre>
+                        <li>Avoir le détail des lignes ajoutées et retirées (édition de patch)</li>
+                        <pre><code>git log -p</code></pre>
+
+                        <li>Résumé des commits</li>
+                        <pre><code>git log --stat</code></pre>
+
+                    </ul>
+                </small>
+                <aside class="notes">
+                    <ul>
+                        <li>git log --oneline</li>
+                        <li>git log --branches --graph</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Visualiser les modifications</h2>
+
+                <small>
+                    <ul>
+                        <li>Chaque commit est identifié par son SHA-1</li>
+                        <pre><code>
+*   3d7400d - (HEAD, origin/develop, origin/HEAD, develop) Merge branch 'fix/growing' into 'develop' (7 days ago)
+|\
+| * 51bf4fd - fix(growing-season) Added 2 months to end date, spec specific request (8 days ago)
+* |   c48b62f - Merge branch 'fix/export-csv' into 'develop' (8 days ago)
+|\ \
+| * | 6886ac0 - fix (devloc export associations): fix filter non null locations (8 days ago)
+|/ /
+* |   214110b - Merge branch 'feature/export-csv-associations' into 'develop' (8 days ago)
+                </code></pre>
+                        <li><span class="emphasize">HEAD</span> est en quelque sorte la tête de lecture du dépot</li>
+                    </ul>
+                </small>
+
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Visualiser les modifications</h2>
+
+                <small>
+                    <ul>
+                        <li>L'instruction <span class="emphasize">checkout</span> permet de déplacer le HEAD</li>
+                        <pre><code># Vers une branche
+git checkout develop </code></pre>
+                        <pre><code># Vers un commit via son SHA-1
+git checkout 51bf4fd </code></pre>
+                        <pre><code># Vers un tag
+git checkout v1.5.8 </code></pre>
+                        <li><span class="emphasize">HEAD</span> est un simple fichier comprenant une ligne qui désigne
+                            notre position : <code>.git/HEAD</code>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Visualiser les modifications</h2>
+
+                <small>
+                    <ul>
+                        <li>L'instruction show permet d'afficher le contenu d'un objet</li>
+                        <pre><code>git show SHA-1</code></pre>
+
+                        <li>Les commits</li>
+                        <li>Les tags</li>
+                        <li>Les commits de merge</li>
+
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases</h5>
+
+                <h2>Ignorer un fichier / répertoire</h2>
+
+                <small>
+                    <ul>
+                        <li>Le fichier .gitignore permet d'ignorer un fichier ou un répertoire</li>
+                        <pre><code class="hljs" data-trim contenteditable>
+                    cache/*
+                    log/*
+                    *.iml
+                    target/
+                    out.log
+                </code></pre>
+                        <li>Utilisation d'un fichier global</li>
+                        <pre><code>git config --global core.excludesfile "~/.gitignore-global"</code></pre>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases - Comprendre le stage</h5>
+
+                <br/>
+                <small>
+                    <table>
+                        <tr>
+                            <td><img src="assets/staging-area.png" width="500px"/></td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td><span class="emphasize">Working Directory</span> est l'arborescence de
+                                            fichiers<br/><br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Le <span class="emphasize">Stage</span> est la zone de validation qui
+                                            contient les travaux qui seront inclus dans le prochain commit<br/><br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Le <span class="emphasize">Repository</span> contient l'ensemble des données
+                                            historiques des fichiers
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases - Comprendre le stage</h5>
+
+                <h2>Gestion des fichiers</h2>
+                <small>
+                    <ul>
+                        <li>Ajouter un fichier ou une modification de fichier dans l'index</li>
+
+                        <pre><code>git add nom-du-fichier</code></pre>
+
+                        <i>L'instruction <code>add</code> ajoute une version du fichier dans l'index</i>
+
+                        <br/><br/>
+                        <li>Commiter le contenu de l'index dans le repository local</li>
+
+                        <pre><code>git commit</code></pre>
+                        <pre><code>git commit -m "message de commit"</code></pre>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases - Comprendre le stage</h5>
+
+                <small>
+                    <ul>
+                        <li>Supprimer un fichier et le marquer comme tel dans le stage</li>
+                        <pre><code>git rm nom-du-fichier</code></pre>
+
+                        <li>Modifier un commit</li>
+                        <pre><code>git commit --amend</code></pre>
+                        <i>Pour modifier le contenu et/ou le commentaire du dernier commit</i>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases - Comprendre le stage</h5>
+
+                <h2>Retour en arrière</h2>
+
+                <small>
+                    <ul>
+                        <li>Le commit est retiré du dépot et <span class="emphasize">déplacé dans l'index</span></li>
+                        <li>Les fichiers restent modifiés dans l'index</li>
+                        <pre><code>git reset --soft HEAD^</code></pre>
+
+                        <li>Le commit est retiré du dépot et <span
+                                class="emphasize">déplacé dans le Working Directory</span>
+                        </li>
+                        <pre><code>git reset --mixed HEAD^</code></pre>
+
+                        <li>Pour modifier le contenu et/ou le commentaire du dernier commit</li>
+                        <pre><code>git reset --hard HEAD^</code></pre>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases - Comprendre le stage</h5>
+
+                <h2>Navigation dans l'historique</h2>
+
+                <small>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Symbole</th>
+                            <th>Définition</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>HEAD</td>
+                            <td>La version courante</td>
+                        </tr>
+                        <tr>
+                            <td>HEAD^</td>
+                            <td>Le commit précédent</td>
+                        </tr>
+                        <tr>
+                            <td>HEAD^^</td>
+                            <td>Le deuxième commit précédent</td>
+                        </tr>
+                        <tr>
+                            <td>HEAD~1</td>
+                            <td>Le commit précédent</td>
+                        </tr>
+                        <tr>
+                            <td>HEAD~3</td>
+                            <td>Le troisième commit précédents</td>
+                        </tr>
+                        <tr>
+                            <td>v1.5.8</td>
+                            <td>Identifiant d'un tag</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les bases - Comprendre le stage</h5>
+
+                <h2>Créer un tag</h2>
+
+                <small>
+                    <ul>
+                        <li>Le tag est une étiquette associé à un commit (son SHA-1)</li>
+                        <pre><code>git tag v1.5.8 SHA-1</code></pre>
+
+                        <li>Il est possible de créer des tags <span class="emphasize">annotés</span></li>
+                        <pre><code>git tag -a v1.5.8 -m "this is a tag"</code></pre>
+                    </ul>
+                </small>
+            </section>
+        </section>
+
+        <!--TP1 - Les bases - Comprendre le stage-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>TP1 - Les bases</h1>
+                <h3>Installation, premières commandes</h3>
+                <h3>Comprendre le stage</h3>
+            </section>
+
+            <section>
+                <h5 class="title-min">TP1 - Les bases - Comprendre le stage 1/2</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Créer un dépot</li>
+                        <li>Créer plusieurs fichiers, les placer dans l'index, puis commiter</li>
+                        <li>Modifier un fichier, puis afficher les différences</li>
+                        <li>Renommer un fichier, déplacer un autre fichier, puis commiter</li>
+                        <li>Créer un répertoire, puis ignorer le en utilisant le fichier .gitignore</li>
+                        <li>Ajouter un fichier dans ce répertoire et vérifier qu'il n'est pas possible de le commiter
+                        </li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">TP1 - Les bases - Comprendre le stage 2/2</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Créer un nouveau dépot. Ajouter deux fichiers et créer un premier commit initial</li>
+                        <li>Créer deux nouveaux fichiers <code>key.txt</code> et <code>date.txt</code> et ajouter les à
+                            l'index
+                        </li>
+                        <li>Restaurer le fichier <code>key.txt</code> dans le Working Directory</li>
+                        <li>Modifier le et ajouter le à nouveau dans l'index, puis commiter les deux fichiers</li>
+                        <li>Annuler le dernier commit pour obtenir à nouveau les deux fichiers dans l'index</li>
+                        <li>Restaurer le fichier <code>key.txt</code> dans le Working Directory</li>
+                        <li>Ajouter le à .gitignore puis commiter <code>date.txt</code></li>
+                    </ul>
+                </small>
+            </section>
+        </section>
+
+        <!--Les branches-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>Les branches</h1>
+                <img src="assets/git-branch.png"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les branches</h5>
+                <br/>
+
+                <small>
+                    <ul>
+                        <li>Une branche est une référence à un commit</li>
+                        <li>HEAD est une branche spécifique qui pointe sur le commit courant</li>
+                    </ul>
+
+                    <pre><code>
+*   6e24cd7 - (HEAD, origin/develop, develop) Merge branch 'feature/back-rename' into 'develop'
+|\
+| * 5366c8e - (origin/feature/back-rename) feat(back) - add rename folder endpoint
+|/
+| * e15c657 - (origin/feature/update-gca-eval) feat(front): Update GCA Eval
+                </code></pre>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les branches</h5>
+
+                <h2>Dans quels cas créer une branche?</h2>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Ma modification sera-t-elle rapide?</li>
+                        <li>Ma modification est-elle simple?</li>
+                        <li>Ma modification nécessite-t-elle un seul commit?</li>
+                    </ul>
+                </small>
+
+                <br/><br/>
+                <small>
+                    <ul>
+                        <li>Créer une branche pour toute modification qui pourrait être un peu longue</li>
+                        <li>La politique de création des branches est à discuter avec l'équipe de développement</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les branches</h5>
+
+                <small>
+                    <ul>
+                        <li>Consulter les branches</li>
+                        <pre><code>git branch</code></pre>
+
+                        <li>Créer une branche</li>
+                        <pre><code>git branch nom-de-la-branche</code></pre>
+                        <small class="emphasize">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ne change pas la branche
+                            courante
+                        </small>
+
+                        <br/><br/>
+                        <li>Changer de branche</li>
+                        <pre><code>git checkout nom-de-la-branche</code></pre>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Les branches</h5>
+
+                <small>
+                    <ul>
+                        <li><p style="font-size: smaller;">Créer et changer de branche</p></li>
+                        <pre><code>git checkout -b nom-de-la-branche</code></pre>
+                        <br/>
+                        <li><p style="font-size: smaller;">Créer une branche à partir d'une autre</p></li>
+                        <pre><code>git checkout -b nouvelle-branche branche-source</code></pre>
+                    </ul>
+                </small>
+            </section>
+        </section>
+
+        <!--Merger les branches-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>Merger les branches</h1>
+
+                <img src="assets/git-merge.png"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <h2>Le merge classique</h2>
+
+                <small>
+                    <pre><code>git merge new-feature</code></pre>
+
+                    <ul>
+                        <li>La branche destination est la branche courante</li>
+                        <li class="emphasize">Conserve l'historique du développement d'une fonctionnalité</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <h2>Le cherry-pick</h2>
+
+                <small>
+                    <pre><code>git cherry-pick [SHA-1]</code></pre>
+                </small>
+                <br/><br/>
+                <small class="emphasize">Un nouveau commit est créé avec un SHA-1 différent</small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <h2>Le rebase</h2>
+                <small>
+                    <pre><code>git rebase [SHA-1] ou nom-de-la-branche</code></pre>
+                    <ul>
+                        <li>Conserve l'ensemble des commits dans l'ordre</li>
+                    </ul>
+                </small>
+
+                <br/><br/>
+                <h2>Le rebase interactif</h2>
+                <small>
+                    <pre><code>git rebase -i [SHA-1]</code></pre>
+                    <ul>
+                        <li>Modifier le message d'un commit</li>
+                        <li>Supprimer un commit</li>
+                        <li>Modifier l'ordre des commits</li>
+                        <li>Modifier un commit</li>
+                        <li>Fusionner des commits</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <br/>
+                <small>
+                    <table>
+                        <tr>
+                            <td>Avant merge</td>
+                            <td>merge</td>
+                            <td>rebase</td>
+                        </tr>
+                        <tr>
+                            <td><img src="assets/merge1.png" width="300"/></td>
+                            <td><img src="assets/merge2.png" width="300"/></td>
+                            <td><img src="assets/merge3.png" width="300"/></td>
+                        </tr>
+                    </table>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <h2>rebase vs merge</h2>
+                <br/>
+                <small>
+                    <ul>
+                        <li><span class="emphasize">rebase</span> modifie le point de départ d'une branche</li>
+                        <li><span class="emphasize">merge</span> crée un commit de merge</li>
+                        <li>Un commit de merge apparaît sous forme d'une branche dans l'arbre des logs</li>
+                        <li><span class="emphasize">rebase</span> recrée de nouveaux commits, avec de nouveaux SHA-1
+                        </li>
+                        <li><span class="emphasize">merge</span> se comporte comme <span class="emphasize">rebase</span>
+                            s'il le peut
+                        </li>
+                        <li>avec <span class="emphasize">merge</span>, la gestion des conflits est faite à la fin</li>
+                        <li>avec <span class="emphasize">rebase</span>, la gestion des conflits est faite à chaque
+                            commit en conflit
+                        </li>
+                        </li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <h2>rebase vs merge</h2>
+
+                <img src="assets/rebase-de-ouf.png"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Merger les branches</h5>
+
+                <br/>
+
+            </section>
+        </section>
+
+        <!--TP2 - Les branches-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>TP2 - Les branches</h1>
+            </section>
+
+            <section>
+                <h5 class="title-min">TP2 - Les branches 1/3</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Créer une nouvelle branche et <span class="emphasize">faire pointer le HEAD sur cette branche</span>
+                        </li>
+                        <li>Créer un fichier, puis commiter le</li>
+                        <li>Constater le placement des étiquettes des branches master, HEAD et de la branche dans le
+                            log
+                        </li>
+                        <li>Faire en sorte que master concorde avec la nouvelle branche</li>
+                        <li>Constater le fast-forward</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">TP2 - Les branches 2/3</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Créer une nouvelle branche et <span class="emphasize">faite pointer le HEAD sur cette branche</span>
+                        </li>
+                        <li>Créer un fichier, puis commiter le</li>
+                        <li>Merger la branche sur master en utilisant la commande <code>git merge --no-ff</code></li>
+                        <li>Afficher les logs et constater le commit de merge</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">TP2 - Les branches 3/3</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Créer une nouvelle branche et <span class="emphasize">faite pointer le HEAD sur cette branche</span>
+                        </li>
+                        <li>Créer plusieurs fichiers, puis commiter les</li>
+                        <li>Merger la branche sur master en utilisant <code>git rebase</code></li>
+                        <li>Eventuellement essayer le mode interactif</li>
+                        <blockquote>L'étiquette master et celle de la branche doivent correspondre</blockquote>
+                    </ul>
+                </small>
+            </section>
+        </section>
+
+        <!--Travailler avec un serveur distant-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>Travailler avec un serveur distant</h1>
+
+                <img src="assets/logos/gitlab.png" width="700"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Travailler avec un serveur distant</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Cloner un dépot</li>
+                        <pre><code>git clone https://github.com/git/git</code></pre>
+
+                        <li>Voir les dépots enregistrés</li>
+                        <pre><code>git remote -v</code></pre>
+
+                        <li>Enregistrer un nouveau dépot distant</li>
+                        <pre><code>git remote add nom-du-remote url-du-remote</code></pre>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Travailler avec un serveur distant</h5>
+
+                <h2>Update avec un fetch</h2>
+
+                <small>
+                    <pre><code>git fetch nom-du-remote</code></pre>
+                    <pre><code>git fetch nom-du-remote nom-de-la-branche</code></pre>
+
+                    <ul>
+                        <li>Récupère les mises à jour du serveur</li>
+                        <li>Pas de fusion avec les sources locales</li>
+                        <li><span class="emphasize">fetch</span> ne modifie que le repository local. Pas l'index, ni le
+                            Working Directory
+                        </li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Travailler avec un serveur distant</h5>
+
+                <h2>Update avec un pull</h2>
+
+                <small>
+                    <pre><code>git pull nom-du-remote</code></pre>
+                    <pre><code>git pull nom-du-remote nom-de-la-branche</code></pre>
+
+                    <ul>
+                        <li>Equivalent à un <span class="emphasize">fetch</span>, puis un <span
+                                class="emphasize">merge</span></li>
+                        <li>S'il n'y a pas de modification locale, git effectue un <span
+                                class="emphasize">fast-forward</span></li>
+                        <li>Les modifications distantes sont fusionnées automatiquement</li>
+                        <li>En cas de conflit, il faut les résoudre manuellement</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Travailler avec un serveur distant</h5>
+
+                <h2>Envoyer vers le serveur</h2>
+
+                <small>
+                    <pre><code>git push</code></pre>
+                    <ul>
+                        <li>Par défaut, c'est la branche courante qui est envoyée</li>
+                        <li>De même, le dépot distant par défaut est origin</li>
+                    </ul>
+
+                    <pre><code>git push nom-du-remote branche-locale:branche-distante</code></pre>
+
+                    <pre><code>git push -u origin master</code></pre>
+                    <ul>
+                        <li><code>-u</code> ajoute les informations de tracking</li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Travailler avec un serveur distant</h5>
+
+                <h2>Flux complet</h2>
+
+                <br/>
+                <img src="assets/flow.png"/>
+            </section>
+        </section>
+
+        <!--TP3 - Travailler avec un serveur distant-->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>TP3 - Travailler avec un serveur distant</h1>
+
+
+            </section>
+
+            <section>
+                <h5 class="title-min">TP3 - Travailler avec un serveur distant 1/2</h5>
+
+                <br/>
+                <small>
+                    <ul>
+                        <li>Créer un nouveau dépot sur votre espace <span class="emphasize">GitLab</span></li>
+                        <li>Créer un dossier local (Workspace Directory)</li>
+                        <li>Suivre les instructions pour lier le Workspace Directory au nouveau dépot</li>
+                        <li>Commiter des fichiers dans le repository local, puis envoyer les sur le serveur</li>
+                        <li>Constater les changements dans l'interface de <span class="emphasize">GitLab</span></li>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">TP3 - Travailler avec un serveur distant 2/2</h5>
+
+                <br/>
+
+                <h3>Simulation d'un projet</h3>
+            </section>
+        </section>
+
+        <!-- Panic room -->
+
+        <section>
+            <section data-background="#4c0a59">
+                <h1>Panic room</h1>
+
+                <img src="assets/panic.png"/>
+            </section>
+
+            <section>
+                <h5 class="title-min">Panic room</h5>
+
+                <small>
+                    <ul>
+                        <li># Machine à remonter le temps</li>
+                        <pre><code>git reflog
+git reset HEAD@{index}</code></pre>
+
+                        <li># Faire des changements après un commit</li>
+                        <pre><code>git add . # or add individual files
+git commit --amend</code></pre>
+
+                        <li># Commit sur la mauvaise branche?</li>
+                        <pre><code># annule le dernier commit, laisse les changement sur le WD
+git reset HEAD~ --soft
+git stash
+# Déplace le HEAD sur le bonne branche
+git checkout name-of-the-correct-branch
+git stash pop
+git add . # ou uniquement certains fichiers, au besoin
+git commit -m "your message here"
+# done!</code></pre>
+                    </ul>
+                </small>
+            </section>
+
+            <section>
+                <h5 class="title-min">Panic room</h5>
+
+                <small>
+                    <img src="assets/giveup.png" width="200px"/>
+                    <pre><code>cd ..
+sudo rm -r $@#feo%$-git-repository
+git clone https://github.com/$@#feo%$-git-repository.git
+cd $@#feo%$-git-repository</code></pre>
+                </small>
+            </section>
+        </section>
+
+        <section>
+            <h2>http://POADV120/GitKrakenSetup.exe</h2>
+        </section>
+
+        <section>
+            <h1>Outils</h1>
+
+            <small>
+                <ul>
+                    <li>Git Kraken: <a href="https://www.gitkraken.com/">https://www.gitkraken.com/</a></li>
+                    <li>Visual Studio Code: <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a>
+                    </li>
+                    <li>Sourcetree: <a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a></li>
+                    <br/>
+                    <br/>
+                    <li><a href="https://delicious-insights.com/fr/articles/30-options-git-qui-gagnent-a-etre-connues/">https://delicious-insights.com/fr/articles/30-options-git-qui-gagnent-a-etre-connues/</a>
+                    </li>
+                    <li><a href="https://pioupioum.fr/developpement/git-10-commandes-utiles.html">https://pioupioum.fr/developpement/git-10-commandes-utiles.html</a>
+                    </li>
+                    <li><a href="https://ndpsoftware.com/git-cheatsheet.html">https://ndpsoftware.com/git-cheatsheet.html</a></li>
+                </ul>
+            </small>
+        </section>
+
+        <section data-background="#4c0a59">
+            <h1>Fin</h1>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

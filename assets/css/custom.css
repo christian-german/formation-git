@@ -1,0 +1,345 @@
+.reveal {
+    /*color: #ccc;*/
+    font-family: Rajdhani, sans-serif;
+    font-size: 42px
+}
+
+.reveal h1, .reveal h2, .reveal strong {
+    color: #b63383;
+    margin: 0 0 .6em 0;
+    font-weight: 700;
+    letter-spacing: -.03em
+}
+
+.reveal h1 {
+    font-size: 2.2em
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    font-family: Montserrat, Impact, sans-serif;
+    line-height: 1em
+}
+
+.reveal h3, .reveal h4 {
+    color: #ccc
+}
+
+.reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    font-family: "Montserrat Alternates", Impact, sans-serif;
+    text-transform: none;
+    font-weight: 700
+}
+
+.reveal h5, .reveal h6 {
+    font-family: Rajdhani, sans-serif;
+    margin: 1em 0 .3em 0;
+    color: #fff;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    font-size: 100%
+}
+
+.reveal .container dl, .reveal .container ol, .reveal .container ul {
+    display: table
+}
+
+#license {
+    left: 0;
+    position: absolute;
+    top: 560px;
+    z-index: 1;
+    font-size: .46em;
+    color: #ccc;
+    width: 100%;
+    text-align: right
+}
+
+#license a {
+    color: #42affa;
+    text-decoration: underline
+}
+
+#helpfooter, #rightsection, #version {
+    position: absolute;
+    text-align: center;
+    top: 500px;
+    z-index: 1;
+    font-size: .7em;
+    color: #ccc;
+    width: 100%
+}
+
+#helpfooter {
+    text-align: left
+}
+
+#version {
+    text-align: right
+}
+
+.reveal div.container {
+    display: inline-block
+}
+
+.reveal .pc90 {
+    max-width: 90%
+}
+
+.col3-l {
+    float: left;
+    width: 32%
+}
+
+.col3-c {
+    width: 32%;
+    display: inline-block
+}
+
+.col3-r {
+    float: right;
+    width: 32%
+}
+
+.twocol {
+    width: 48%;
+    float: left
+}
+
+.reveal .twocol dl, .reveal .twocol ol, .reveal .twocol ul {
+    display: table
+}
+
+.small code, .small li, .small p, div.small, p.small, span.small {
+    font-size: 86% !important;
+}
+
+.x-small code, .x-small li, .x-small p, div.x-small, p.x-small {
+    font-size: 64% !important
+}
+
+.reveal .title {
+    margin: 0 0 80px 0
+}
+
+.reveal .title-min {
+    border-bottom: 3px dashed;
+    color: #4c0a59;
+    text-align: left;
+    margin: .3em 0 .3em 0;
+}
+
+.reveal .emphasize {
+    /*max-width: 65%;*/
+    color: #fa4242;
+    text-align: left;
+    font-weight: bold;
+    /*line-height: 1.5*/
+}
+
+.reveal pre code {
+    max-height: none
+}
+
+.reveal img.plain {
+    margin: 0;
+    background: 0 0;
+    border: none;
+    box-shadow: none
+}
+
+.reveal img.flag {
+    margin: 0;
+    background: 0 0;
+    border: none;
+    box-shadow: none;
+    height: .8em
+}
+
+.reveal img.floaticon {
+    max-width: 120px;
+    margin: .2em .7em .2em 0;
+    float: left;
+    clear: both
+}
+
+.reveal p.floaticon {
+    margin-left: 150px
+}
+
+.tgap {
+    margin-top: .8em !important
+}
+
+.bgap {
+    margin-bottom: .8em !important
+}
+
+.reveal .glow {
+    text-shadow: 0 0 .5em #ccc, 0 0 .5em #ccc;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1))
+}
+
+.reveal code {
+    border-radius: 5px;
+    padding: 0 7px 2px;
+    border: 1px solid rgba(255, 255, 255, .4);
+    background: rgba(63, 63, 63, .8);
+    font-size: .8em;
+    /*white-space: nowrap*/
+}
+
+.reveal pre code {
+    padding: 20px;
+    background: rgba(63, 63, 63, .8);
+    border: none;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    /*white-space: nowrap*/
+}
+
+.reveal p {
+    margin: .4em 0 .2em 0
+}
+
+.reveal dl, .reveal ol, .reveal ul {
+    margin: 0 0 0 1.6em
+}
+
+#table-of-contents ol {
+    list-style-position: inside;
+    -moz-column-count: 2;
+    -moz-column-gap: 60px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 60px;
+    column-count: 2;
+    column-gap: 60px
+}
+
+#table-of-contents li {
+    font-size: .9em;
+    line-height: 1.8em;
+    color: #8dcffc
+}
+
+.reveal .profile {
+    float: left;
+    position: absolute;
+    top: 150px;
+    left: 800px;
+    margin: 60px 30px;
+    width: 400px;
+    font-size: .9em;
+    font-weight: 200
+}
+
+.profile .profile-sidebar {
+    padding: 10px 0 10px 0;
+    border: 1px solid rgba(125, 125, 100, 1);
+    background: rgba(63, 63, 50, .7)
+}
+
+.profile .profile-userpic {
+    padding: 0 10px
+}
+
+.profile .profile-userpic img {
+    float: left;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50% !important
+}
+
+.profile .profile-usertitle {
+    text-align: center;
+    margin-top: .6em;
+    font-weight: 700
+}
+
+.profile .profile-usertitle-name {
+    font-size: .8em;
+    font-weight: 600;
+    line-height: 1em
+}
+
+.profile .profile-usertitle-job {
+    color: #f99;
+    font-size: .75em;
+    font-weight: 300
+}
+
+.profile .profile-social * {
+    vertical-align: middle
+}
+
+.profile .profile-social {
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(63, 63, 63, .8);
+    font-size: .6em;
+    font-weight: 600
+}
+
+.profile .profile-social .list-inline {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.profile .profile-social .list-inline > li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px
+}
+
+.profile .profile-social .footer-links a {
+    color: grey
+}
+
+.profile .profile-social .footer-links a:focus, .profile .profile-social .footer-links a:hover {
+    color: #42affa
+}
+
+.profile .profile-social .footer-links i.fa-inverse {
+    padding-top: .4em
+}
+
+.reveal blockquote {
+    width: 80%;
+    text-align: left
+}
+
+.c-ref {
+    font-weight: lighter !important;
+    font-size: 50% !important;
+    vertical-align: super !important;
+    margin: 0 8px !important;
+    opacity: .6 !important
+}
+
+.c-ref > code {
+    border: 1px solid rgba(255, 255, 255, .6) !important;
+    background: #00008b !important
+}
+
+A.c-ref > code {
+    color: #f5f5f5 !important;
+    text-decoration: underline !important
+}
+
+.jep {
+    font-weight: 700 !important;
+    font-size: 45% !important;
+    vertical-align: super !important;
+    margin: 0 8px !important;
+    color: #fff8dc !important;
+    border-radius: 5px !important;
+    padding: 0 7px 2px !important;
+    border: 1px solid rgba(255, 255, 255, .6) !important;
+    background: #6b8e23 !important
+}
+
+.left {
+    text-align: left
+}
