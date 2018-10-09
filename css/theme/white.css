@@ -267,7 +267,7 @@ body:before {
   position: absolute;
   content: "";
   display: block;
-  background: url("../../assets/adventiel/logo_adv_bottom.jpg") right bottom no-repeat;
+  background: url("../../images/adventiel/logo_adv_bottom.jpg") right bottom no-repeat;
   width: 120px;
   height: 120px;
   bottom: 30px;

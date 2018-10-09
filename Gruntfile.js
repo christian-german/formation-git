@@ -19,10 +19,6 @@ module.exports = function(grunt) {
 				' */'
 		},
 
-		qunit: {
-			files: [ 'test/*.html' ]
-		},
-
 		uglify: {
 			options: {
 				banner: '<%= meta.banner %>\n',
@@ -111,7 +107,6 @@ module.exports = function(grunt) {
 					'lib/**',
 					'images/**',
 					'plugin/**',
-					'assets/**',
 					'**.md'
 				],
 				dest: 'reveal-js-presentation.zip'
@@ -188,6 +183,6 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
 
 	// Run tests
-	grunt.registerTask( 'test', [ 'jshint', 'qunit' ] );
+	grunt.registerTask( 'test', [ 'jshint' ] );
 
 };
