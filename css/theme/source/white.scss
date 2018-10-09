@@ -79,3 +79,41 @@ img {
 .reveal h1 {
   text-shadow: unset;
 }
+
+.reveal-toolbar-button {
+  color: #540158 !important;
+  border: none !important;
+  background-color: white !important;
+}
+
+.reveal-toolbar{
+  a {
+    color: #540158 !important;
+  }
+}
+
+.slide-menu-toolbar {
+  border-bottom: solid 2px #540158;
+}
+
+.slide-menu-toolbar, .slide-menu, .toolbar-panel-button, #close {
+  color: #540158 !important;
+  background-color: white !important;
+}
+
+.reveal .progress {
+  color: #540158 !important;
+}
+
+.slide-menu-item, .slide-menu-item-title {
+  color: #540158 !important;
+}
+.selected {
+  span {
+    color: white !important;
+  }
+  background-color: #540158 !important;
+}
+.controls-arrow {
+  color: grey !important;
+}
