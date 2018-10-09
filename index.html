@@ -1006,7 +1006,11 @@ cd $@#feo%$-git-repository</code></pre>
     // - https://github.com/hakimel/reveal.js#dependencies
     Reveal.initialize({
         history: true,
+        slideNumber: true,
+        mouseWheel: true,
         dependencies: [
+            {src: 'plugin/shortcuts/shortcuts.js'},
+            { src: 'plugin/mouse-pointer/mouse-pointer.js'},
             {src: 'plugin/markdown/marked.js'},
             {src: 'plugin/markdown/markdown.js'},
             {src: 'plugin/notes/notes.js', async: true},

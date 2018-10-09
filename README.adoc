@@ -1,0 +1,19 @@
+# Formation Git
+
+* Impression PDF
+  ** accéder à l'url comme ceci `<URL>?print-pdf`
+
+* Raccourcis
+
+
+[cols="2*", options="header"]
+|====
+|Fonctionnalité | Touche
+
+|Pointeur laser | `Maj`
+
+|Mode présentateur | `S`
+
+|Mode impression| `M`
+
+|Vue globales des slides| `Esc`
