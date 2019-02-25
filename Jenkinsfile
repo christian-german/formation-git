@@ -1,4 +1,4 @@
-library 'common-library-jenkinsfile@master'
+@Library('common-library-jenkinsfile@master') _
 
 def projetCompleteName = env.JOB_NAME
 
@@ -44,13 +44,13 @@ nodeExtended("docker") {
     sshagent([sshAgent]) {
       sshagent(['documentation']) {
               sh '''
-                  HOME_DOCUMENTATION=/var/www/documentation.adventiel.com
-                  DOCUMENTATION_DIR="$HOME_DOCUMENTATION/a0e69b86-f9d5-48c1-b879-27db4b39a367"
+                    HOME_DOCUMENTATION=/var/www/documentation.adventiel.com
+                    DOCUMENTATION_DIR="$HOME_DOCUMENTATION/a0e69b86-f9d5-48c1-b879-27db4b39a367"
 
-                  ssh -o StrictHostKeyChecking=no root@documentation.pic.adventiel.io "rm -rf $DOCUMENTATION_DIR"
-                  ssh -o StrictHostKeyChecking=no root@documentation.pic.adventiel.io "mkdir -p $DOCUMENTATION_DIR"
-                  scp -o StrictHostKeyChecking=no -r ./reveal-js-presentation.zip root@documentation.pic.adventiel.io:$DOCUMENTATION_DIR/
-                  ssh -o StrictHostKeyChecking=no root@documentation.pic.adventiel.io  "cd $DOCUMENTATION_DIR && unzip ./reveal-js-presentation.zip && rm ./reveal-js-presentation.zip"
+                    ssh -o StrictHostKeyChecking=no livraison@documentation.pic.adventiel.io "sudo -u nginx rm -rf $DOCUMENTATION_DIR"
+                    ssh -o StrictHostKeyChecking=no livraison@documentation.pic.adventiel.io "sudo -u nginx mkdir -p $DOCUMENTATION_DIR"
+                    rsync --progress --rsync-path="sudo -u nginx rsync" ./reveal-js-presentation.zip livraison@documentation.pic.adventiel.io:$DOCUMENTATION_DIR/
+                    ssh -o StrictHostKeyChecking=no livraison@documentation.pic.adventiel.io  "sudo -u nginx unzip $DOCUMENTATION_DIR/reveal-js-presentation.zip -d $DOCUMENTATION_DIR/ && sudo -u nginx rm $DOCUMENTATION_DIR/reveal-js-presentation.zip"
               '''
             }
     }
