@@ -44,7 +44,7 @@ nodeExtended("docker") {
     sshagent([sshAgent]) {
       sshagent(['documentation']) {
               sh '''
-                    HOME_DOCUMENTATION=/var/www/documentation.adventiel.com
+                    HOME_DOCUMENTATION=/var/www/documentation.adventiel.com/formations
                     DOCUMENTATION_DIR="$HOME_DOCUMENTATION/a0e69b86-f9d5-48c1-b879-27db4b39a367"
 
                     ssh -o StrictHostKeyChecking=no livraison@documentation.pic.adventiel.io "sudo -u nginx rm -rf $DOCUMENTATION_DIR"
